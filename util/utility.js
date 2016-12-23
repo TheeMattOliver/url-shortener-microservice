@@ -1,4 +1,5 @@
 var request = require('request');
+var link = require('../db/link.js')
 
 exports.getUrlTitle = (url, callback) => {
 	request(url, (err, res, html) => {
@@ -20,3 +21,12 @@ var rValidUrl = /^(?!mailto:)(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:(?:(?:
 exports.isValidUrl = function(url) {
   return url.match(rValidUrl);
 };
+
+// Check for duplicates
+function isDuplicate(url) {
+  return link
+    .findOne({ originalUrl: url})
+     .then(doc => {
+      return doc ? doc.shortCode : false;
+     });
+}
