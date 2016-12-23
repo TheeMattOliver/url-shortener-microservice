@@ -1,3 +1,4 @@
 module.exports = {
-  dbUrl: 'mongodb://swquotes-admin:Computeraspectofcyber!@ds059316.mlab.com:59316/star-wars-quotes'
+  dbUrl: 'mongodb://url-shorter-admin:Computeraspectofcyber!@ds143608.mlab.com:43608/url-shortener'
 }
+

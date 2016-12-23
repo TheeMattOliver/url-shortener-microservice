@@ -32,9 +32,12 @@ MongoClient.connect(`${link}`, (err, database) => {
 })
 
 app.get('/', (req, res) => {
-
+  /* something here */
 })
 
+app.post('/', (req, res) =>{
+  /* something here */
+})
 
 app.listen(port, () => {
 	console.log('The magic\'s happening on port: ', port);
