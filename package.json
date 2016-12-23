@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon --exec 'mocha -R min'",
     "start": "./node_modules/.bin/nodemon server.js"
   },
   "author": "Matt",
@@ -16,7 +16,7 @@
     "body-parser": "^1.14.2",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
-    "moment": "^2.17.1",
+    "mocha": "^3.2.0",
     "mongodb": "^2.2.16",
     "nodemon": "^1.11.0"
   }
