@@ -24,7 +24,7 @@ exports.isValidUrl = function(url) {
 
 // Check for duplicates
 exports.isDuplicate = function(url) {
-  return link
+  return Link
     .findOne({ originalUrl: url})
      .then(doc => {
       return doc ? doc.shortCode : false;
@@ -60,4 +60,11 @@ exports.insertNew = function(url) {
   })
 }
 
+// Return a compelling shortened URL:
+exports.createFullUrl(req, shortCode) {
+  return `${req.protocol}: //${req.hostname}:${getPort()}/${shortCode}`;
+}
 
+function getPort() {
+  return process.env.PORT || 8000;
+}
