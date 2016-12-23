@@ -6,6 +6,8 @@ var Link = require('./db/link.js')
 var util = require('./util/utility.js');
 var mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+
 var app = express();
 
 app.set('views', __dirname + '/views');
@@ -24,7 +26,7 @@ var port = process.env.PORT || 3000;
 
 
 app.get('/', (req, res) => {
-  /* something here for serving index*/
+  /* something here for serving index */
 })
 
 // Redirect:

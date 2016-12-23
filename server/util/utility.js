@@ -61,7 +61,7 @@ exports.insertNew = function(url) {
 }
 
 // Return a compelling shortened URL:
-exports.createFullUrl(req, shortCode) {
+exports.createFullUrl = function(req, shortCode) {
   return `${req.protocol}: //${req.hostname}:${getPort()}/${shortCode}`;
 }
 
