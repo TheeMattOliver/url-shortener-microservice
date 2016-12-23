@@ -12,11 +12,11 @@ app.set('view engine', 'ejs');
 if(!process.env.dbUrl) {
 var mlab = require('./env/config.js')
   } else {
-  var mlab = 'https://maythequotesbewithyou.herokuapp.com/:${process.env.PORT}/dbUrl'  
+  var mlab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
 }
 
 var port = process.env.PORT || 3000;
-// eventually we'll be calling our `app.listen` function in the db connect method
+
 var link = process.env.dbUrl || mlab.dbUrl;
 
 
