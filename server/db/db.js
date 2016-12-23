@@ -9,10 +9,10 @@ mongoose.connect(`${link}`);
 var db = mongoose.connection;
 
 db.on('error', function (err) {
-  console.log('connection error', err);
+  console.log('Uh oh. Looks like there was a database connection error :', err);
 });
 db.once('open', function () {
-  console.log('connected to database.');
+  console.log('Connected to database!');
 });
 
 
