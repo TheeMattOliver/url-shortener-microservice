@@ -2,13 +2,14 @@ var express = require('express')
 var path = require('path')
 var bodyparser = require('body-parser')
 var db = require('./db/db.js');
-var util = require('./util/utility');
+var Link = require('./db/link.js')
+var util = require('./util/utility.js');
 var mongoose = require('mongoose');
 
 var app = express();
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-
 app.use(express.static(__dirname + '/client'));
 
 
@@ -20,13 +21,34 @@ var mlab = require('./env/config.js')
 
 var port = process.env.PORT || 3000;
 
-var link = process.env.dbUrl || mlab.dbUrl;
 
 
 app.get('/', (req, res) => {
-  /* something here */
+  /* something here for serving index*/
 })
 
+// Redirect:
+app.get('/:shortCode', (req, res) => {
+  // parse the input code
+  let shortCode = parseInt(req.params.shortCode);
+  if (isNan) {
+    res.status(500).json({error: 'Invalid URL shortCode. Must be a number.'})
+  } else {
+    Link.findOne({ shortCode }).then(doc => {
+      if (!doc) {
+        res.status(404).json({ error: 'Page not found' });
+      } else {
+        // if record found in database, redirect to that URL
+        res.redirect(doc.originalUrl);
+      }
+    });
+  }
+});
+
+
+
+
+// takes a URL and creates a MongoDB entry with a shortcode that we assign for reference:
 app.get('/new/*', (req, res) =>{
   console.log(req.params[0]);
   var url = req.params[0];
@@ -36,20 +58,24 @@ app.get('/new/*', (req, res) =>{
       // if already shortened, return existing entry
       if (shortCode) {
         res.status(200).json({
-          error: 'URL already exists in the database!'
+          error: 'URL already exists in the database!',
           url: `http://www.example.com/${shortCode}`
         })
       } else {
         // otherwise, create new entry and return it
+        util.insertNew(url).then(insertedDocument => {
+          if(!insertedDocument) {
+            res.status(500).json({error: 'Unknown error'})
+          } else {
+            res.status(200).send('URL successfully shortened: http://www.example.com/${insertedDocument.shortCode}');
+          }
+        });
       }
-    })
-    
-    
+    }); 
   } else {
     res.status(500).json({error: 'Invalid URL format. Please use the format: http(s)://(www.)domain.ext(/)(path)'});
   }
 })
-
 
 
 app.listen(port, () => {

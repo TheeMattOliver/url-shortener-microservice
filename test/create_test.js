@@ -3,7 +3,7 @@ const User = require('../server/db/link.js');
 
 describe('Creating records', () => {
   it('saves a link', (done) => {
-    const google = new Link({ url: 'https://www.google.com' });
+    const google = new Link({ originalUrl: 'https://www.google.com' });
  
     google.save()
      .then(() => {

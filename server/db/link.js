@@ -20,6 +20,9 @@ const linkSchema = new Schema({
 
 });
 
+linkSchema.index({ shortCode: 1 });
+linkSchema.set('autoIndex', false);
+
 var Link = mongoose.model('Link', linkSchema);
 
 module.exports = Link;
