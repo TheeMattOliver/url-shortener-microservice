@@ -30,37 +30,24 @@ app.get('/', (req, res) => {
 app.get('/new/*', (req, res) =>{
   console.log(req.params[0]);
   var url = req.params[0];
-  if (isValidUrl(url)) {
+  if (util.isValidUrl(url)) {
     // check for duplicates
-    // if already shortened, return existing entry
-    // otherwise, create new entry and return it
+    util.isDuplicate(url).then(shortCode => {
+      // if already shortened, return existing entry
+      if (shortCode) {
+        res.status(200).json({
+          error: 'URL already exists in the database!'
+          url: `http://www.example.com/${shortCode}`
+        })
+      } else {
+        // otherwise, create new entry and return it
+      }
+    })
+    
+    
   } else {
     res.status(500).json({error: 'Invalid URL format. Please use the format: http(s)://(www.)domain.ext(/)(path)'});
   }
-})
-
-app.post('/links', (req, res) =>{
-  /* something here */
-  var url = req.body.url;
-
-  if (!util.isValidUrl(url)){
-    console.log('Sorry, please enter a valid url. That is not a valid url: ', url);
-    return res.sendStatus(404);
-  }
-
-  db.collection('links').save(req.body, (err, result) => {
-    if (err) {
-      throw err;
-    console.log('Error creating your link.', err);
-    } else {
-      console.log('Link saved to the database!');
-      // Once we save quote, redirect user to '/', which causes browser to reload
-      res.redirect('/')
-    }
-  })
-
-  console.log('req.body ', req.body);
-
 })
 
 

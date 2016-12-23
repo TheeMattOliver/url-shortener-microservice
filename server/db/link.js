@@ -3,7 +3,6 @@ var mongoose = require('./db.js');
 var Schema = mongoose.Schema;
 
 const linkSchema = new Schema({
-  id : Number,
   
   originalUrl : {
   	type: String,
@@ -18,7 +17,7 @@ const linkSchema = new Schema({
   	type: Number,
   	index: true
   }
-  
+
 });
 
 var Link = mongoose.model('Link', linkSchema);

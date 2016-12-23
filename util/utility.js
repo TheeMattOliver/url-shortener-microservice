@@ -23,7 +23,7 @@ exports.isValidUrl = function(url) {
 };
 
 // Check for duplicates
-function isDuplicate(url) {
+exports.isDuplicate(url) {
   return link
     .findOne({ originalUrl: url})
      .then(doc => {
