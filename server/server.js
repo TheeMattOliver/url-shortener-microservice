@@ -8,6 +8,8 @@ var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+app.use(express.static(__dirname + '/client'));
+
 
 if(!process.env.dbUrl) {
 var mlab = require('./env/config.js')
