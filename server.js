@@ -10,7 +10,6 @@ var MongoClient = require('mongodb').MongoClient;
 // handle requests from the browser
 var db;
 
-
 if(!process.env.dbUrl) {
 var mlab = require('./env/config.js')
   } else {
