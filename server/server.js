@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 app.get('/:shortCode', (req, res) => {
   // parse the input code
   var shortCode = parseInt(req.params.shortCode);
-  if (isNan) {
+  if (isNaN(shortCode)) {
     res.status(500).json({error: 'Invalid URL shortCode. Must be a number.'})
   } else {
     Link.findOne({ shortCode }).then(doc => {
@@ -49,24 +49,27 @@ app.get('/:shortCode', (req, res) => {
 
 // takes a URL and creates a MongoDB entry with a shortcode that we assign for reference:
 app.get('/new/*', (req, res) =>{
-  console.log(req.params[0]);
+  console.log("We're in our request now :", req.params[0]);
   var url = req.params[0];
   if (util.isValidUrl(url)) {
+    console.log("Checking for duplicates")
     // check for duplicates
     util.isDuplicate(url).then(shortCode => {
+      console.log("isDuplicate running")
       // if already shortened, return existing entry
       if (shortCode) {
         res.status(200).json({
           error: 'URL already exists in the database!',
-          url: `http://www.example.com/${shortCode}`
+          url: `https://shortenurlpls.herokuapp.com/${shortCode}`
         })
       } else {
         // otherwise, create new entry and return it
         util.insertNew(url).then(insertedDocument => {
+          console.log("now we're into insertNew")
           if(!insertedDocument) {
             res.status(500).json({error: 'Unknown error'})
           } else {
-            res.status(200).send('URL successfully shortened: http://www.example.com/${insertedDocument.shortCode}');
+            res.status(200).send('URL successfully shortened: https://shortenurlpls.herokuapp.com/${insertedDocument.shortCode}');
           }
         });
       }
