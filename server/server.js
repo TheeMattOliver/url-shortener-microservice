@@ -24,7 +24,6 @@ var mlab = require('./env/config.js')
 var port = process.env.PORT || 3000;
 
 
-
 app.get('/', (req, res) => {
   /* something here for serving index */
 })
@@ -32,7 +31,7 @@ app.get('/', (req, res) => {
 // Redirect:
 app.get('/:shortCode', (req, res) => {
   // parse the input code
-  let shortCode = parseInt(req.params.shortCode);
+  var shortCode = parseInt(req.params.shortCode);
   if (isNan) {
     res.status(500).json({error: 'Invalid URL shortCode. Must be a number.'})
   } else {
@@ -46,8 +45,6 @@ app.get('/:shortCode', (req, res) => {
     });
   }
 });
-
-
 
 
 // takes a URL and creates a MongoDB entry with a shortcode that we assign for reference:
