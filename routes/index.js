@@ -3,12 +3,13 @@ var router = express.Router();
 
 
 var mongodb = require('mongodb');
-if(!process.env.dbUrl) {
+var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl' 
 
-var mlab = require('../env/config.js')
-  } else {
-  var mlab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
-}
+// if(!process.env.dbUrl) {
+// var mLab = require('../env/config.js')
+//   } else {
+//   var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
+// }
 
 var MongoClient = mongodb.MongoClient;
 
@@ -24,28 +25,29 @@ router.get('/', function(req, res, next) {
 
 // :url(*) allows us to pass in properly formatted links
 router.get('/new/:url(*)', function(req, res, next) {  
-  
+  console.log("Here's the link we're adding to the db: ", req.params[0]);
   MongoClient.connect(mLab, function(err, db) {
       if (err) {
         console.log("Unable to connect to the server", err);
       } else {
         console.log("Connected to server")
         var collection = db.collection('links');
-        var params = req.params.url;
+        var params = JSON.parse(req.params[0]);
+        
+        var newLink = function(db, callback) {
+          var insertLink = { url: params, short: "test" };
+          collection.insert([insertLink]);
+          res.send(params);
+        };
+
+        newLink(db, function() {
+          db.close();
+        });
+      
       };
-  }); 
-
-  var newLink = function(db, callback) {
-    var insertLink = { url: params, short: "test" };
-    collection.insert([insertLink]);
-    res.send(params);
-  };
-
-  newLink(db, function() {
-    db.close();
-  });
-
   
+  }); 
+ 
 });
 
 
