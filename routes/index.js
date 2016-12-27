@@ -28,7 +28,6 @@ router.get('/', function(req, res, next) {
 router.get('/new/:url(*)', function(req, res, next) {  
   console.log("Here's the link we're adding to the db: ", req.params[0]);
   MongoClient.connect(mLab, function(err, db) {
-    console.log('are we getting into the MongoClient function?')
       if (err) {
         console.log("Unable to connect to the server", err);
       } else {
@@ -49,7 +48,7 @@ router.get('/new/:url(*)', function(req, res, next) {
           var newUrl = {url: params, short: shortCode};
 
           collection.insert([newUrl]);
-          res.json({ original_url: params, short_url: 'mongodb://localhost/links/' + shortCode})
+          res.json({ original_url: params, short_url: 'https://shortenurlpls.herokuapp.com/' + shortCode})
         } else {
           res.status(500).json({ error: "Sorry, wrong url format. Please make sure you're passing a valid protocol for a real website."})
         }
