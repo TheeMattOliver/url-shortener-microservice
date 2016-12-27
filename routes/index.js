@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-
 var mongodb = require('mongodb');
-var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl' 
-
+var mLab = 'mongodb://url-shorter-admin:Computeraspectofcyber!@ds143608.mlab.com:43608/url-shortener'
 // if(!process.env.dbUrl) {
 // var mLab = require('../env/config.js')
 //   } else {
@@ -32,7 +30,7 @@ router.get('/new/:url(*)', function(req, res, next) {
       } else {
         console.log("Connected to server")
         var collection = db.collection('links');
-        var params = JSON.parse(req.params[0]);
+        var params = req.params[0];
         
         var newLink = function(db, callback) {
           var insertLink = { url: params, short: "test" };
