@@ -6,7 +6,7 @@ var config = require('../env/config');
 if(!process.env.dbUrl) {
 var mLab = config.dbUrl;
   } else {
-  var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
+var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
 }
 
 var MongoClient = mongodb.MongoClient;
@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 // :url(*) allows us to pass in properly formatted links
 router.get('/new/:url(*)', function(req, res, next) {  
   console.log("Here's the link we're adding to the db: ", req.params[0]);
-  var link = process.env.dbUrl || mLab.dbUrl;
+  var link = process.env.dbUrl || mLab;
   MongoClient.connect(`${link}`, (err, db) => {
       if (err) {
         console.log("Unable to connect to the server", err);
