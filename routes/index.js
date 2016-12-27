@@ -27,7 +27,8 @@ router.get('/', function(req, res, next) {
 // :url(*) allows us to pass in properly formatted links
 router.get('/new/:url(*)', function(req, res, next) {  
   console.log("Here's the link we're adding to the db: ", req.params[0]);
-  MongoClient.connect(mLab, function(err, db) {
+  var link = process.env.dbUrl || mlab.dbUrl;
+  MongoClient.connect(`${link}`, (err, db) => {
       if (err) {
         console.log("Unable to connect to the server", err);
       } else {
