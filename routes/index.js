@@ -49,7 +49,7 @@ router.get('/new/:url(*)', function(req, res, next) {
           var newUrl = {url: params, short: shortCode};
 
           collection.insert([newUrl]);
-          res.json({ original_url: params, short_url: 'http://localhost:3000/' + shortCode})
+          res.json({ original_url: params, short_url: 'mongodb://localhost/links/' + shortCode})
         } else {
           res.status(500).json({ error: "Sorry, wrong url format. Please make sure you're passing a valid protocol for a real website."})
         }
