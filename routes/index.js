@@ -2,19 +2,23 @@ var express = require('express');
 var router = express.Router();
 
 var mongodb = require('mongodb');
-var mLab = 'mongodb://url-shorter-admin:Computeraspectofcyber!@ds143608.mlab.com:43608/url-shortener'
-// if(!process.env.dbUrl) {
-// var mLab = require('../env/config.js')
-//   } else {
-//   var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
-// }
+var config = require('../env/config');
+if(!process.env.dbUrl) {
+var mLab = config.dbUrl;
+  } else {
+  var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
+}
 
 var MongoClient = mongodb.MongoClient;
 
 var shortid = require('shortid');
+// removes underscores and dashes from possible characterlist
+shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
+
 var validUrl = require('valid-url');
 
 var port = process.env.PORT || 3000;
+var shortenerLink = 'http://localhost:' + port + '/' || 'http://shortenurlpls.herokuapp.com/' 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,26 +33,64 @@ router.get('/new/:url(*)', function(req, res, next) {
         console.log("Unable to connect to the server", err);
       } else {
         console.log("Connected to server")
+        
         var collection = db.collection('links');
         var params = req.params[0];
         
         var newLink = function(db, callback) {
-          var insertLink = { url: params, short: "test" };
-          collection.insert([insertLink]);
-          res.send(params);
-        };
+        // test:
+        //   var insertLink = { url: params, short: "test" };
+        //   collection.insert([insertLink]);
+        //   res.send(params);
+        // };
+
+        if (validUrl.isUri(params)) {
+          var shortCode = shortid.generate();
+          var newUrl = {url: params, short: shortCode};
+
+          collection.insert([newUrl]);
+          res.json({ original_url: params, short_url: shortenerLink + shortCode})
+        } else {
+          res.json({ error: "Sorry, wrong url format. Please make sure you're passing a valid protocol for a real website."})
+        }
+      };
 
         newLink(db, function() {
           db.close();
-        });
-      
+        }); 
       };
-  
-  }); 
- 
-});
+  });  
+}); //<-- end router.get('/new/:url(*)')
 
+router.get('/:short', function(req, res, next) {
 
+  MongoClient.connect(mLab, function(err, db) {
+    if (err) {
+        console.log("Unable to connect to the server", err);
+      } else {
+        console.log("Connected to server")
+      }
+
+      var collection = db.collection('links');
+      var params = req.params.short;
+
+      var findLink = function (db, callback) {
+        collection.findOne({ "short": params }, { url: 1, _id: 0 }, function(err, doc) {
+          if (doc != null) {
+            // if a document is found, we return the doc and redirect browser to value of the returned key/value pair
+            res.redirect(doc.url);
+          } else {
+            res.json({error: "No corresponding shortlink found in the database."})
+          };
+        });
+      };
+
+      findLink(db, function() {
+        db.close();
+      })
+  })
+
+})
 
 
 module.exports = router;
