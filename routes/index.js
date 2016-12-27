@@ -18,7 +18,6 @@ shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX
 var validUrl = require('valid-url');
 
 var port = process.env.PORT || 3000;
-var shortenerLink = 'http://localhost:' + port + '/' || 'http://shortenurlpls.herokuapp.com/' 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -49,9 +48,9 @@ router.get('/new/:url(*)', function(req, res, next) {
           var newUrl = {url: params, short: shortCode};
 
           collection.insert([newUrl]);
-          res.json({ original_url: params, short_url: shortenerLink + shortCode})
+          res.json({ original_url: params, short_url: 'mongodb://localhost:3000/' + shortCode})
         } else {
-          res.json({ error: "Sorry, wrong url format. Please make sure you're passing a valid protocol for a real website."})
+          res.status(500).json({ error: "Sorry, wrong url format. Please make sure you're passing a valid protocol for a real website."})
         }
       };
 
