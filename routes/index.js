@@ -21,13 +21,25 @@ var port = process.env.PORT || 3000;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+  db.collection('links').find().toArray((err, result) => {
+    console.log("Here are the links: ", result)
+    
+    if (err) {
+    console.log("Problem getting links from database:", err)
+    }
+  
+  res.render('index.ejs', {links: result})
+  })
 });
 
 // :url(*) allows us to pass in properly formatted links
 router.get('/new/:url(*)', function(req, res, next) {  
   console.log("Here's the link we're adding to the db: ", req.params[0]);
   var link = process.env.dbUrl || mLab;
+
+  
+  
   MongoClient.connect(`${link}`, (err, db) => {
       if (err) {
         console.log("Unable to connect to the server", err);
@@ -63,7 +75,6 @@ router.get('/new/:url(*)', function(req, res, next) {
 }); //<-- end router.get('/new/:url(*)')
 
 router.get('/:short', function(req, res, next) {
-
   MongoClient.connect(mLab, function(err, db) {
     if (err) {
         console.log("Unable to connect to the server", err);
@@ -89,8 +100,6 @@ router.get('/:short', function(req, res, next) {
         db.close();
       })
   })
-
 })
-
 
 module.exports = router;

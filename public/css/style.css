@@ -8,5 +8,12 @@ a {
 }
 
 .wrapper {
-	max-width: 800px;
+	max-width: 90%;
+	margin:0 auto;
+}
+
+.links-wrapper {
+	max-width: 100%;
+	margin:0 auto;
+	padding-top: 40px;
 }
