@@ -15,7 +15,13 @@ $('.btn').on('click', function(event){
   .then(function() {
       // clear input fields
       $('input[type="text"]').val('');
-  })
+      // hack-y page refresh :(
+      location.reload();
+    });
+    
+
+
+})
   // .then(function() {
   //   $.ajax({
   //     url: '/',
@@ -26,5 +32,5 @@ $('.btn').on('click', function(event){
   //     }
   //   })
   // })
-});
+
 
