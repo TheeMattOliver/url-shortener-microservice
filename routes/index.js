@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 var mongodb = require('mongodb');
-var config = require('../env/config');
+// var config = require('../env/config');
+
 if(!process.env.dbUrl) {
-var mLab = config.dbUrl;
+var mLab = require('../env/config').dbUrl;
   } else {
 var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
 }
