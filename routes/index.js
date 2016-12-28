@@ -73,7 +73,8 @@ router.get('/new/:url(*)', function(req, res, next) {
 }); //<-- end router.get('/new/:url(*)')
 
 router.get('/:short', function(req, res, next) {
-  MongoClient.connect(mLab, function(err, db) {
+  var link = process.env.dbUrl || mLab; 
+  MongoClient.connect(`${link}`, function(err, db) {
     if (err) {
         console.log("Unable to connect to the server", err);
       } else {
