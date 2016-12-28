@@ -10,9 +10,9 @@
 </head>
 <body>
 <div class="wrapper">
-    <h1>Url Shortener Microservice</h1>
+    <h1>URL Shortener Microservice</h1>
 
-    <h2>Enter a URL to shorten</h2>
+    <h3>Enter a URL to shorten</h3>
 
       <div class="col-lg-12">
         <div class="input-group input-group-lg">
@@ -25,13 +25,14 @@
 
 
   <div class="links-wrapper">
-    <h2>Shortened URLS:</h2>
+    <h3>Shortened URLS:</h3>
     <ul class="list-group links">
       <% for(var i=0; i<links.length; i++) {%>
         
-          <li class="list-group-item list-group-item-action link">
-            <a href="#"><span><%= links[i].url %></span></a>
-            <a href="#"><span><%= links[i].short %></span></a>
+          <li class="list-group-item link">
+            <span>Original: <a href="#"><%= links[i].url %></span></a>
+            <br />
+            <span>Shortened: <a href="#"><%= links[i].short %></span></a>
           </li>
 
       <% } %>
