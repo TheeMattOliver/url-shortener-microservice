@@ -17,5 +17,15 @@ $('.btn').on('click', function(event){
       // clear input fields
       $('input[type="text"]').val('');
   })
+  // .then(function() {
+  //   $.ajax({
+  //     url: '/',
+  //     type: 'GET',
+  //     headers: {
+  //       'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+  //       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+  //     }
+  //   })
+  // })
 });
 

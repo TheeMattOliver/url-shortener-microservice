@@ -29,11 +29,11 @@ router.get('/', function(req, res, next) {
     console.log("Problem getting links from database:", err)
     }
   
-  res.render('index.ejs', {links: result})
+    res.render('index.ejs', {links: result})
   })
 });
 
-// :url(*) allows us to pass in properly formatted links
+// :url(*) allows us to pass in properly formatted links in a raw query string
 router.get('/new/:url(*)', function(req, res, next) {  
   console.log("Here's the link we're adding to the db: ", req.params[0]);
   var link = process.env.dbUrl || mLab; 
@@ -114,11 +114,6 @@ console.log("Here's the link we're adding to the db: ", req.body.url);
         var params = req.body.url;
         
         var newLink = function(db, callback) {
-        // test:
-        //   var insertLink = { url: params, short: "test" };
-        //   collection.insert([insertLink]);
-        //   res.send(params);
-        // };
         if (validUrl.isUri(params)) {
           var shortCode = shortid.generate();
           var newUrl = {url: params, short: shortCode};
