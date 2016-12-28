@@ -7,10 +7,16 @@ a {
   color: #00B7FF;
 }
 
+
 .wrapper {
 	max-width: 90%;
 	margin:0 auto;
 }
+
+.input-field-wrapper{
+	padding-top: 10px;
+}
+
 
 .links-wrapper {
 	max-width: 100%;

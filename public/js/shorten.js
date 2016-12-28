@@ -1,7 +1,6 @@
 // shorten button event listener
 $('.btn').on('click', function(event){
   
-  event.preventDefault();
   console.log('Button was clicked and ' + $('#url-field').val() +' will be added to database!')
   // AJAX call to /api/shorten with the URL that the user entered in the input box
   $.ajax({
