@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font-family: 'Roboto', sans-serif;
+
 }
 
 a {
@@ -11,15 +12,24 @@ a {
 .wrapper {
 	max-width: 90%;
 	margin:0 auto;
+	text-align: center;
 }
 
 .input-field-wrapper{
+	max-width: 600px;
+	margin:0 auto;
 	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: left;
 }
 
+.input-group {
+	max-width: 600px;
+}
 
 .links-wrapper {
-	max-width: 100%;
+	max-width: 600px;
 	margin:0 auto;
 	padding-top: 40px;
+	text-align: left;
 }

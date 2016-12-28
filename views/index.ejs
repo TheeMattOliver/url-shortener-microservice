@@ -12,10 +12,11 @@
 <div class="wrapper">
     <h1>URL Shortener Microservice</h1>
 
-    <h3>Enter a URL to shorten</h3>
+    
 
     <div class="col-lg-12">
       <div class="input-field-wrapper">
+      <h3>Enter a URL to shorten</h3>
         <div class="input-group input-group-lg">
           <input id="url-field" type="text" class="form-control" placeholder="Your link here...">
             <span class="input-group-btn">
@@ -25,24 +26,23 @@
       </div>
     </div>
 
+    <div class="col-lg-12">
+    <div class="links-wrapper">
+      <h3>Shortened URLS:</h3>
+      <ul class="list-group links">
+        <% for(var i=0; i<links.length; i++) {%>
+          
+            <li class="list-group-item link">
+              <span>Original: <a href="<%= links[i].url %>"><%= links[i].url %></span></a>
+              <br />
+              <span>Shortened: <a href="<%= 'https://shortenurlpls.herokuapp.com/' + links[i].short %>"><%= 'https://shortenurlpls/' + links[i].short %>
+              </span></a>
+            </li>
 
-  <div class="links-wrapper">
-    <h3>Shortened URLS:</h3>
-    <ul class="list-group links">
-      <% for(var i=0; i<links.length; i++) {%>
-        
-          <li class="list-group-item link">
-            <span>Original: <a href="<%= links[i].url %>"><%= links[i].url %></span></a>
-            <br />
-            <span>Shortened: <a href="<%= 'https://shortenurlpls.herokuapp.com/' + links[i].short %>"><%= 'https://shortenurlpls/' + links[i].short %></span></a>
-          </li>
-
-      <% } %>
-    </ul>
-  
-  </div>
-
-
+        <% } %>
+      </ul>
+    </div>
+    </div>
 
 
 </div>

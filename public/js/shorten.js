@@ -18,19 +18,7 @@ $('.btn').on('click', function(event){
       // hack-y page refresh :(
       location.reload();
     });
-    
-
-
 })
-  // .then(function() {
-  //   $.ajax({
-  //     url: '/',
-  //     type: 'GET',
-  //     headers: {
-  //       'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-  //       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-  //     }
-  //   })
-  // })
+
 
 
