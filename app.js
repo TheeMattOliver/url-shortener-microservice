@@ -14,10 +14,16 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs')
 
+// if(!process.env.dbUrl) {
+// var mlab = require('./env/config.js')
+//   } else {
+//   var mlab = 'https://maythequotesbewithyou.herokuapp.com/:${process.env.PORT}/dbUrl'  
+// }
+
 if(!process.env.dbUrl) {
-var mlab = require('./env/config.js')
+var mLab = require('../env/config').dbUrl;
   } else {
-  var mlab = 'https://maythequotesbewithyou.herokuapp.com/:${process.env.PORT}/dbUrl'  
+var mLab = 'https://shortenurlpls.herokuapp.com/:${process.env.PORT}/dbUrl'  
 }
 
 var port = process.env.PORT || 3000;
